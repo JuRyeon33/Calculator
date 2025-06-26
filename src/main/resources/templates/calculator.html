@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Awesome한 계산기</title>
+    <style>
+        @font-face {
+        font-family: 'neurimboGothicRegular';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/neurimboGothicRegular.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        }
+
+        body {
+            font-family: neurimboGothicRegular;
+            background-color: #928DAB;
+            margin: 0;
+            padding: 130px;
+        }
+
+        h1 {
+            color: #a044ff;
+        }
+
+        form {
+            background: #eacda3;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 3px rgba(0,0,0,1); /* (x축, y축, 흐림정도, 그림자 색상) */
+            max-width: 400px
+            margin: 0 auto;
+        }
+
+        label {
+            display: block; /* 줄바꿈 */
+            margin-bottom: 10px;
+            font_weight: bold; /* 폰트 두께 */
+            font-size: 24px;
+        }
+
+        input, select {
+            width: 100%;
+            background-color: #2c3e50;
+            color: #d7d2cc;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            font-size: 24px;
+        }
+
+        .result, .error {
+        max-width: auto;
+        margin: 20px auto;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 48px
+        }
+
+        .result {
+        background-color: #d7d2cc;
+        }
+
+        .error {
+        background-color: #ffdde1;
+        }
+
+        button {
+            background-color: #8e9eab;
+            color: #001510;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1 style="background-color: lightblue; margin: 0;">Awesome한 계산기</h1>
+<form th:action="@{/calculate}" method="post">
+    <label for="num1">Number 1:</label>
+    <input type="number" step="any" id="num1" name="num1" required/>
+
+    <label for="num1">Number 2:</label>
+    <input type="number" step="any" id="num2" name="num2" required/>
+
+    <label for="operation">Operation: </label>
+    <select id="operation" name="operation">
+        <option value="add">Add (+)</option>
+        <option value="subtract">Subtract (-)</option>
+        <option value="multiply">Multiply (*)</option>
+        <option value="divide">Divide (÷)</option>
+    </select>
+
+    <button type="submit" style="font-family: neurimboGothicRegular">Calculate</button>
+</form>
+
+<div th:if="${errorMessage}" class="error">
+    <p th:text="${errorMessage}"></p>
+</div>
+
+<div th:if="${result}" class="result">
+    <h2>Result: <span th:text="${result}"></span></h2>
+</div>
+</body>
+</html>
